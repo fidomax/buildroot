@@ -1,0 +1,16 @@
+config BR2_PACKAGE_OPENSCADA
+	bool "openscada"
+	depends on BR2_USE_WCHAR # libglib2
+	depends on BR2_TOOLCHAIN_HAS_THREADS # libglib2
+	depends on BR2_USE_MMU # libglib2, slang
+	select BR2_PACKAGE_GD
+	select BR2_PACKAGE_ZLIB
+	select BR2_PACKAGE_SQLITE
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_LM_SENSORS
+	select BR2_PACKAGE_FFTW
+	help
+	  OpenSCADA
+
+	  http://oscada.org
+
