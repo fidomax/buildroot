@@ -12,6 +12,13 @@ dtb_list()
 	for dt in $DTB_LIST; do
 		echo -n "\"$dt.dtb\", "
 	done
+
+	local DTS_LIST+="$(sed -n 's/^BR2_LINUX_KERNEL_CUSTOM_DTS_PATH="\(.*\)"$/\1/p' ${BR2_CONFIG})"
+
+	for dt in $DTS_LIST; do
+		echo -n "\""$(basename -s .dts $dt).dtb"\", "
+	done
+
 }
 
 #
