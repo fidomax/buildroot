@@ -14,6 +14,11 @@ LINUX_FIRMWARE_FILES += intel/fw_sst_0f28.bin-48kHz_i2s_master
 LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.fw_sst_0f28
 endif
 
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_I915),y)
+LINUX_FIRMWARE_DIRS += i915
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENSE.i915
+endif
+
 ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_RADEON),y)
 LINUX_FIRMWARE_DIRS += radeon
 LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENSE.radeon
@@ -314,6 +319,9 @@ endif
 
 ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_RTL_8169),y)
 LINUX_FIRMWARE_FILES += \
+	rtl_nic/rtl8105e-1.fw \
+	rtl_nic/rtl8106e-1.fw \
+	rtl_nic/rtl8106e-2.fw \
 	rtl_nic/rtl8168d-1.fw \
 	rtl_nic/rtl8168d-2.fw \
 	rtl_nic/rtl8168e-1.fw \
@@ -321,14 +329,13 @@ LINUX_FIRMWARE_FILES += \
 	rtl_nic/rtl8168e-3.fw \
 	rtl_nic/rtl8168f-1.fw \
 	rtl_nic/rtl8168f-2.fw \
-	rtl_nic/rtl8105e-1.fw \
+	rtl_nic/rtl8168g-2.fw \
+	rtl_nic/rtl8168g-3.fw \
+	rtl_nic/rtl8168h-1.fw \
+	rtl_nic/rtl8168h-2.fw \
 	rtl_nic/rtl8402-1.fw \
 	rtl_nic/rtl8411-1.fw \
-	rtl_nic/rtl8411-2.fw \
-	rtl_nic/rtl8106e-1.fw \
-	rtl_nic/rtl8106e-2.fw \
-	rtl_nic/rtl8168g-2.fw \
-	rtl_nic/rtl8168g-3.fw
+	rtl_nic/rtl8411-2.fw
 endif
 
 ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_XCx000),y)
