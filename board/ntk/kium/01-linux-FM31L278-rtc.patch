@@ -1,0 +1,51 @@
+--- a/drivers/rtc/rtc-fm3130.c
++++ b/drivers/rtc/rtc-fm3130.c
+@@ -339,9 +339,9 @@
+ static const struct rtc_class_ops fm3130_rtc_ops = {
+ 	.read_time	= fm3130_get_time,
+ 	.set_time	= fm3130_set_time,
+-	.read_alarm	= fm3130_read_alarm,
+-	.set_alarm	= fm3130_set_alarm,
+-	.alarm_irq_enable = fm3130_alarm_irq_enable,
++	//.read_alarm	= fm3130_read_alarm,
++	//.set_alarm	= fm3130_set_alarm,
++	//.alarm_irq_enable = fm3130_alarm_irq_enable,
+ };
+ 
+ static struct i2c_driver fm3130_driver;
+@@ -380,7 +380,7 @@
+ 	fm3130->msg[1].buf = &fm3130->regs[FM3130_RTC_SECONDS];
+ 
+ 	/* Messages to read alarm */
+-	fm3130->msg[2].addr = client->addr;
++/*	fm3130->msg[2].addr = client->addr;
+ 	fm3130->msg[2].flags = 0;
+ 	fm3130->msg[2].len = 1;
+ 	fm3130->msg[2].buf = &fm3130->reg_addr_alarm;
+@@ -388,13 +388,13 @@
+ 	fm3130->msg[3].addr = client->addr;
+ 	fm3130->msg[3].flags = I2C_M_RD;
+ 	fm3130->msg[3].len = FM3130_ALARM_REGS;
+-	fm3130->msg[3].buf = &fm3130->regs[FM3130_ALARM_SECONDS];
++	fm3130->msg[3].buf = &fm3130->regs[FM3130_ALARM_SECONDS]; */
+ 
+ 	fm3130->alarm_valid = 0;
+ 	fm3130->data_valid = 0;
+ 
+-	tmp = i2c_transfer(adapter, fm3130->msg, 4);
+-	if (tmp != 4) {
++	tmp = i2c_transfer(adapter, fm3130->msg, 2);
++	if (tmp != 2) {
+ 		dev_dbg(&client->dev, "read error %d\n", tmp);
+ 		err = -EIO;
+ 		goto exit_free;
+@@ -445,7 +445,7 @@
+ 		dev_dbg(&client->dev, "POR bit is set\n");
+ 	}
+ 	/* ACS is controlled by alarm */
+-	i2c_smbus_write_byte_data(client, FM3130_ALARM_WP_CONTROL, 0x80);
++//	i2c_smbus_write_byte_data(client, FM3130_ALARM_WP_CONTROL, 0x80);
+ 
+ 	/* alarm registers sanity check */
+ 	tmp = bcd2bin(fm3130->regs[FM3130_RTC_SECONDS] & 0x7f);
+
