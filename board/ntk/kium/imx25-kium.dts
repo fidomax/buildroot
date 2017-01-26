@@ -104,7 +104,6 @@
 	cd-gpios = <&gpio4 30 GPIO_ACTIVE_LOW>;
 	wp-gpios = <&gpio2 0 GPIO_ACTIVE_HIGH>;
 	status = "okay";
-	max-frequency = "25000000";
 };
 
 &fec {
@@ -122,12 +121,9 @@
 	pinctrl-0 = <&pinctrl_i2c1>;
 	status = "okay";
 
-	codec: sgtl5000@0a {
-		compatible = "fsl,sgtl5000";
-		reg = <0x0a>;
-		clocks = <&clks 129>;
-		VDDA-supply = <&reg_2p5v>;
-		VDDIO-supply = <&reg_3p3v>;
+	fm3130: fm3130@6B {
+		compatible = "fsl,fm3130";
+		reg = <0x6B>;
 	};
 };
 
