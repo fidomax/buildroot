@@ -31,6 +31,8 @@ F:	package/gstreamer1/gst1-rtsp-server/
 
 N:	Adam Duskett <aduskett@gmail.com>
 F:	package/nginx-naxsi/
+F:	package/python-mutagen/
+F:	package/sngrep/
 
 N:	Alex Suykov <alex.suykov@gmail.com>
 F:	package/vboot-utils/
@@ -381,6 +383,7 @@ F:	package/ccrypt/
 F:	package/dos2unix/
 F:	package/ipmiutil/
 F:	package/python-daemon/
+F:	package/udpxy/
 
 N:	David Bender <codehero@gmail.com>
 F:	package/benejson/
@@ -887,6 +890,7 @@ F:	package/x11r7/xdriver_xf86-video-imx/
 F:	package/x11r7/xdriver_xf86-video-imx-viv/
 
 N:	Jörg Krause <joerg.krause@embedded.rocks>
+F:	package/bctoolbox/
 F:	package/libshout/
 F:	package/libupnpp/
 F:	package/luv/
@@ -912,6 +916,10 @@ F:	package/aircrack-ng/
 
 N:	Lee Jones <lee.jones@linaro.org>
 F:	boot/afboot-stm32/
+
+N:	Lionel Flandrin <lionel@svkt.org>
+F:	package/python-babel/
+F:	package/python-flask-babel/
 
 N:	Lionel Orry <lionel.orry@gmail.com>
 F:	package/mongrel2/
