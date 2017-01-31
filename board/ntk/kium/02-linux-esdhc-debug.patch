@@ -1,0 +1,103 @@
+--- a/drivers/mmc/host/sdhci-esdhc-imx.c
++++ b/drivers/mmc/host/sdhci-esdhc-imx.c
+@@ -384,6 +384,8 @@
+ 				data = MMC_STOP_TRANSMISSION << 24 |
+ 				       SDHCI_CMD_ABORTCMD << 16;
+ 				writel(data, host->ioaddr + SDHCI_TRANSFER_MODE);
++	pr_err("++++++++++++++++++++++my reset\n");
++sdhci_do_reset(host, SDHCI_RESET_ALL);
+ 				imx_data->multiblock_status = WAIT_FOR_INT;
+ 			}
+ 	}
+@@ -535,8 +537,15 @@
+ 		}
+ 		return;
+ 	case SDHCI_COMMAND:
+-		if (host->cmd->opcode == MMC_STOP_TRANSMISSION)
++		if (host->cmd->opcode == MMC_STOP_TRANSMISSION){
+ 			val |= SDHCI_CMD_ABORTCMD;
++			if (imx_data->multiblock_status == MULTIBLK_IN_PROCESS)
++			{
++pr_err("=========================SDHCI_CMD_ABORTCMD\n");
++sdhci_init(host, 0);
++			}
++
++}
+ 
+ 		if ((host->cmd->opcode == MMC_SET_BLOCK_COUNT) &&
+ 		    (imx_data->socdata->flags & ESDHC_FLAG_MULTIBLK_NO_INT))
+@@ -1240,7 +1249,10 @@
+ 
+ //	if (imx_data->socdata->flags & ESDHC_FLAG_ENGCM07207)
+ 		/* Fix errata ENGcm07207 present on i.MX25 and i.MX35 */
+-//		host->quirks |= SDHCI_QUIRK_BROKEN_ADMA;
++//		host->quirks |= SDHCI_QUIRK_NO_MULTIBLOCK
++//			| SDHCI_QUIRK_BROKEN_ADMA;
++		host->quirks |= SDHCI_QUIRK_BROKEN_ADMA;
++//host->quirks |= SDHCI_QUIRK_BROKEN_ADMA | SDHCI_QUIRK_BROKEN_DMA;
+ 
+ 	if (esdhc_is_usdhc(imx_data)) {
+ 		host->quirks2 |= SDHCI_QUIRK2_PRESET_VALUE_BROKEN;
+
+--- a/drivers/mmc/host/sdhci.c
++++ b/drivers/mmc/host/sdhci.c
+@@ -192,7 +192,7 @@
+ }
+ EXPORT_SYMBOL_GPL(sdhci_reset);
+ 
+-static void sdhci_do_reset(struct sdhci_host *host, u8 mask)
++void sdhci_do_reset(struct sdhci_host *host, u8 mask)
+ {
+ 	if (host->quirks & SDHCI_QUIRK_NO_CARD_NO_RESET) {
+ 		struct mmc_host *mmc = host->mmc;
+@@ -213,8 +213,9 @@
+ 		host->preset_enabled = false;
+ 	}
+ }
+-
+-static void sdhci_init(struct sdhci_host *host, int soft)
++EXPORT_SYMBOL_GPL(sdhci_do_reset);
++
++void sdhci_init(struct sdhci_host *host, int soft)
+ {
+ 	struct mmc_host *mmc = host->mmc;
+ 
+@@ -242,6 +243,7 @@
+ 		mmc->ops->set_ios(mmc, &mmc->ios);
+ 	}
+ }
++EXPORT_SYMBOL_GPL(sdhci_init);
+ 
+ static void sdhci_reinit(struct sdhci_host *host)
+ {
+@@ -888,6 +890,8 @@
+ static inline bool sdhci_auto_cmd12(struct sdhci_host *host,
+ 				    struct mmc_request *mrq)
+ {
++if (!mrq->sbc && (host->flags & SDHCI_AUTO_CMD12) && !mrq->cap_cmd_during_tfr)
++	pr_err(DRIVER_NAME ":!!!!!!!!!!!!!!!!!!!! sdhci_auto_cmd12:\n");
+ 	return !mrq->sbc && (host->flags & SDHCI_AUTO_CMD12) &&
+ 	       !mrq->cap_cmd_during_tfr;
+ }
+@@ -3274,7 +3278,7 @@
+ 		mmc->max_busy_timeout /= host->timeout_clk;
+ 	}
+ 
+-	mmc->caps |= MMC_CAP_SDIO_IRQ | MMC_CAP_ERASE | MMC_CAP_CMD23;
++	mmc->caps |= MMC_CAP_SDIO_IRQ | MMC_CAP_ERASE;// | MMC_CAP_CMD23;
+ 	mmc->caps2 |= MMC_CAP2_SDIO_IRQ_NOTHREAD;
+ 
+ 	if (host->quirks & SDHCI_QUIRK_MULTIBLOCK_READ_ACMD12)
+
+--- a/drivers/mmc/host/sdhci.h
++++ b/drivers/mmc/host/sdhci.h
+@@ -688,6 +688,8 @@
+ 			   unsigned short vdd);
+ void sdhci_set_bus_width(struct sdhci_host *host, int width);
+ void sdhci_reset(struct sdhci_host *host, u8 mask);
++void sdhci_do_reset(struct sdhci_host *host, u8 mask);
++void sdhci_init(struct sdhci_host *host, int soft);
+ void sdhci_set_uhs_signaling(struct sdhci_host *host, unsigned timing);
+ 
+ #ifdef CONFIG_PM
+
