@@ -922,8 +922,9 @@ F:	boot/afboot-stm32/
 
 N:	Lionel Flandrin <lionel@svkt.org>
 F:	package/python-babel/
-F:	package/python-flask-babel/
 F:	package/python-flask/
+F:	package/python-flask-babel/
+F:	package/python-gunicorn/
 
 N:	Lionel Orry <lionel.orry@gmail.com>
 F:	package/mongrel2/
@@ -1185,6 +1186,7 @@ F:	board/raspberrypi/
 F:	configs/raspberrypi3_defconfig
 F:	package/assimp/
 F:	package/bcm2835/
+F:	package/ddrescue/
 F:	package/dejavu/
 F:	package/dillo/
 F:	package/edid-decode/
@@ -1193,9 +1195,7 @@ F:	package/gstreamer1/gst1-validate/
 F:	package/libevdev/
 F:	package/log4cplus/
 F:	package/postgresql/
-F:	package/qt5/qt53d/
-F:	package/qt5/qt5quickcontrols2/
-F:	package/qt5/qt5tools/
+F:	package/qt5/
 F:	package/racehound/
 F:	package/wiringpi/
 
@@ -1476,10 +1476,12 @@ F:	package/fcgiwrap/
 N:	Thomas Davis <sunsetbrew@sunsetbrew.com>
 F:	package/civetweb/
 
-N:	Thomas De Schampheleire <patrickdepinguin+buildroot@gmail.com>
-F:	package/libpfm4/
-F:	package/mkpasswd/
-F:	package/zeromq/
+N:	Thomas De Schampheleire <thomas.de_schampheleire@nokia.com>
+F:	docs/manual/
+F:	package/opkg-utils/
+F:	support/scripts/size-stats
+F:	support/scripts/size-stats-compare
+F:	toolchain/
 
 N:	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
 F:	arch/Config.in.arm
