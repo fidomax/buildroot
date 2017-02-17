@@ -26,15 +26,13 @@
  
  		if ((host->cmd->opcode == MMC_SET_BLOCK_COUNT) &&
  		    (imx_data->socdata->flags & ESDHC_FLAG_MULTIBLK_NO_INT))
-@@ -1240,7 +1249,10 @@
+@@ -1240,8 +1249,7 @@
  
- //	if (imx_data->socdata->flags & ESDHC_FLAG_ENGCM07207)
+ 	if (imx_data->socdata->flags & ESDHC_FLAG_ENGCM07207)
  		/* Fix errata ENGcm07207 present on i.MX25 and i.MX35 */
--//		host->quirks |= SDHCI_QUIRK_BROKEN_ADMA;
-+//		host->quirks |= SDHCI_QUIRK_NO_MULTIBLOCK
-+//			| SDHCI_QUIRK_BROKEN_ADMA;
+-		host->quirks |= SDHCI_QUIRK_NO_MULTIBLOCK
+-			| SDHCI_QUIRK_BROKEN_ADMA;
 +		host->quirks |= SDHCI_QUIRK_BROKEN_ADMA;
-+//host->quirks |= SDHCI_QUIRK_BROKEN_ADMA | SDHCI_QUIRK_BROKEN_DMA;
  
  	if (esdhc_is_usdhc(imx_data)) {
  		host->quirks2 |= SDHCI_QUIRK2_PRESET_VALUE_BROKEN;
