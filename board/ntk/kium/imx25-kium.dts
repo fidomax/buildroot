@@ -19,8 +19,7 @@
 	compatible = "fsl,imx25-pdk", "fsl,imx25";
 
 	memory {
-		reg = <0x80000000 0x8000000
-		       0x90000000 0x8000000>;
+		reg = <0x80000000 0x8000000>;
 	};
 
 	regulators {
@@ -87,14 +86,14 @@
 &can1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_can1>;
-	xceiver-supply = <&reg_can_3v3>;
+	xceiver-supply = <&reg_can0_enable>;
 	status = "okay";
 };
 
 &can2 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_can2>;
-	xceiver-supply = <&reg_can_3v3>;
+	xceiver-supply = <&reg_can1_enable>;
 	status = "okay";
 };
 
@@ -133,16 +132,14 @@
 			fsl,pins = <
 				MX25_PAD_GPIO_A__CAN1_TX		0x0
 				MX25_PAD_GPIO_B__CAN1_RX		0x0
-				MX25_PAD_D14__GPIO_4_6 			0x80000000
 				MX25_PAD_CSI_MCLK__GPIO_1_8		0x80000000
 			>;
 		};
 
 		pinctrl_can2: can2grp {
 			fsl,pins = <
-				MX25_PAD_GPIO_A__CAN1_TX		0x0
-				MX25_PAD_GPIO_B__CAN1_RX		0x0
-				MX25_PAD_D14__GPIO_4_6 			0x80000000
+				MX25_PAD_GPIO_C__CAN2_TX		0x0
+				MX25_PAD_GPIO_D__CAN2_RX		0x0
 				MX25_PAD_CSI_VSYNC__GPIO_1_9		0x80000000
 			>;
 		};
@@ -191,12 +188,73 @@
 				MX25_PAD_UART1_RXD__UART1_RXD		0xc0
 			>;
 		};
+		pinctrl_uart2: uart2grp {
+			fsl,pins = <
+				MX25_PAD_UART2_RTS__UART2_RTS		0xe0
+				MX25_PAD_UART2_CTS__UART2_CTS		0xe0
+				MX25_PAD_UART2_TXD__UART2_TXD		0x80000000
+				MX25_PAD_UART2_RXD__UART2_RXD		0xc0
+			>;
+		};
+		pinctrl_uart3: uart3grp {
+			fsl,pins = <
+				MX25_PAD_KPP_ROW2__UART3_RTS		0xe0
+				MX25_PAD_KPP_ROW3__UART3_CTS		0xe0
+				MX25_PAD_KPP_ROW1__UART3_TXD		0x80000000
+				MX25_PAD_KPP_ROW0__UART3_RXD		0xc0
+			>;
+		};
+		pinctrl_uart4: uart4grp {
+			fsl,pins = <
+				MX25_PAD_KPP_COL2__UART4_RTS		0xe0
+				MX25_PAD_KPP_COL3__UART4_CTS		0xe0
+				MX25_PAD_KPP_COL1__UART4_TXD		0x80000000
+				MX25_PAD_KPP_COL0__UART4_RXD		0xc0
+			>;
+		};
+		pinctrl_uart5: uart5grp {
+			fsl,pins = <
+				MX25_PAD_CS5__UART5_RTS			0xe0
+				MX25_PAD_CSI_D5__UART5_CTS		0xe0
+				MX25_PAD_ECB__UART5_TXD			0x80000000
+				MX25_PAD_CSI_D2__UART5_RXD		0xc0
+			>;
+		};
+
 	};
 };
 
 &uart1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_uart1>;
+	uart-has-rtscts;
+	status = "okay";
+};
+
+&uart2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart2>;
+	uart-has-rtscts;
+	status = "okay";
+};
+
+&uart3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart3>;
+	uart-has-rtscts;
+	status = "okay";
+};
+
+&uart4 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart4>;
+	uart-has-rtscts;
+	status = "okay";
+};
+
+&uart5 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart5>;
 	uart-has-rtscts;
 	status = "okay";
 };
