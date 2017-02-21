@@ -102,6 +102,7 @@ BR2_LINUX_KERNEL_CUSTOM_DTS_PATH="board/ntk/kium/imx25-kium.dts"
 # Target packages
 #
 BR2_PACKAGE_BUSYBOX_SHOW_OTHERS=y
+BR2_ROOTFS_OVERLAY="board/ntk/kium/fs-overlay"
 
 #
 # Firmware
@@ -186,6 +187,7 @@ BR2_PACKAGE_PCRE_UCP=y
 BR2_PACKAGE_CAN_UTILS=y
 BR2_PACKAGE_OPENSSH=y
 BR2_PACKAGE_IPROUTE2=y
+BR2_PACKAGE_IFUPDOWN=y
 
 #
 # System tools
