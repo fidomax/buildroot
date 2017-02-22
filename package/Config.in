@@ -1820,6 +1820,7 @@ endmenu
 
 menu "NTK"
 	source "package/openscada/Config.in"
+	source "package/canmon/Config.in"
 endmenu
 
 endmenu

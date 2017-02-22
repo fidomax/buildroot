@@ -1,0 +1,5 @@
+config BR2_PACKAGE_CANMON
+	bool "canmon"
+	help
+	  CanMon is MSO CAN Bus Monitor for Linux
+
