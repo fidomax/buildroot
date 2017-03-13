@@ -81,7 +81,56 @@
 		};
 
 	};
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_gpioled>;
+
+		mst_yellow {
+			label = "MST yellow";
+			gpios = <&gpio3 15 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		mst_green {
+			label = "MST green";
+			gpios = <&gpio3 16 GPIO_ACTIVE_HIGH>;
+			default-state = "on";
+		};
+
+		run_yellow {
+			label = "RUN yellow";
+			gpios = <&gpio3 17 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "heartbeat";
+		};
+
+		run_green {
+			label = "RUN green";
+			gpios = <&gpio3 18 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "mmc0";
+		};
+
+		sts_yellow {
+			label = "STS yellow";
+			gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		sts_green {
+			label = "STS green";
+			gpios = <&gpio2 22 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		err {
+			gpios = <&gpio1 26 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+			panic-indicator;
+		};
+	};
+
 };
+
 
 &can1 {
 	pinctrl-names = "default";
@@ -218,6 +267,17 @@
 				MX25_PAD_CSI_D5__UART5_CTS		0xe0
 				MX25_PAD_ECB__UART5_TXD			0x80000000
 				MX25_PAD_CSI_D2__UART5_RXD		0xc0
+			>;
+		};
+		pinctrl_gpioled: gpioledsgrp {
+			fsl,pins = <
+				MX25_PAD_EXT_ARMCLK__GPIO_3_15 		0x80000000
+				MX25_PAD_UPLL_BYPCLK__GPIO_3_16		0x80000000
+				MX25_PAD_VSTBY_REQ__GPIO_3_17 		0x80000000
+				MX25_PAD_VSTBY_ACK__GPIO_3_18 		0x80000000
+				MX25_PAD_CLKO__GPIO_2_21 		0x80000000
+				MX25_PAD_CSPI1_RDY__GPIO_2_22 		0x80000000
+				MX25_PAD_PWM__GPIO_1_26 		0x80000000
 			>;
 		};
 
