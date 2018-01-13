@@ -128,6 +128,24 @@
 			panic-indicator;
 		};
 	};
+	gpio-keys {
+	    compatible = "gpio-keys";
+	    pinctrl-names = "default";
+	    pinctrl-0 = <&pinctrl_gpiokeys>;
+	    power {
+        	    label = "Power-Key";
+        	    gpios = <&gpio4 4 GPIO_ACTIVE_LOW>;
+        	    linux,code = <KEY_POWER>;
+        	    debounce-interval = <10>;
+	    };
+	    power2 {
+        	    label = "Power-Key2";
+        	    gpios = <&gpio4 3 GPIO_ACTIVE_HIGH>;
+        	    linux,code = <KEY_POWER>;
+        	    debounce-interval = <10>;
+	    };
+
+	};
 
 };
 
@@ -174,6 +192,14 @@
 		reg = <0x6B>;
 	};
 };
+
+//&spi1 {
+//	pinctrl-names = "default";
+//	pinctrl-0 = <&pinctrl_spi>;
+//	fsl,spi-num-chipselects = <3>;
+//	status = "okay";
+//};
+
 
 &iomuxc {
 	imx25-pdk {
@@ -280,7 +306,21 @@
 				MX25_PAD_PWM__GPIO_1_26 		0x80000000
 			>;
 		};
-
+		pinctrl_gpiokeys: gpiokeysgrp {
+			fsl,pins = <
+				MX25_PAD_BCLK__GPIO_4_4 		0x80000000
+				MX25_PAD_CS1__GPIO_4_3 			0x80000000
+			>;
+		};
+//		pinctrl_gpioled: gpioledsgrp {
+//			fsl,pins = <
+//		mxc_iomux_set_pad(MX25_PIN_CSPI1_MOSI, SPI_PAD_CTL1);
+//		mxc_iomux_set_pad(MX25_PIN_CSPI1_MISO, SPI_PAD_CTL1);
+//mxc_request_iomux(MX25_PIN_CSPI1_SCLK, MUX_CONFIG_FUNC);
+//		mxc_iomux_set_pad(MX25_PIN_CSPI1_SS0, SPI_PAD_CTL1);
+//		mxc_iomux_set_pad(MX25_PIN_CSPI1_SS1, SPI_PAD_CTL1);
+//			>;
+//	};
 	};
 };
 
