@@ -113,6 +113,7 @@ BR2_PACKAGE_LM_SENSORS=y
 # lm-sensors tools
 #
 BR2_PACKAGE_LM_SENSORS_SENSORS=y
+BR2_PACKAGE_INPUT_EVENT_DAEMON=y
 
 #
 # Compression and decompression
