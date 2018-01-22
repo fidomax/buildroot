@@ -16,6 +16,7 @@ start() {
 }
 stop() {
 	rm -f /var/lock/openscada
+	sync
 	printf "Stopping openscada: "
 	killall openscada
 	echo "OK"
